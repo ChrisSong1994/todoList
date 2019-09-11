@@ -1,4 +1,5 @@
 import * as React from "react";
+import './index.less'
 
 export interface HelloProps {
   compiler: string;
