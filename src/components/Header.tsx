@@ -4,7 +4,7 @@ export class Header extends React.Component<{}, {}> {
   render() {
     return (
       <header>
-        <h1>todos</h1>
+        <h1>todoList</h1>
       </header>
     );
   }
