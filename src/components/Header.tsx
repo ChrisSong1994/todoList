@@ -1,11 +1,15 @@
 import * as React from "react";
 
-export class Header extends React.Component<{}, {}> {
+class Header extends React.Component<{}, {}> {
   render() {
     return (
-      <header>
+      <header className="header">
         <h1>todoList</h1>
+        <input className="new-todo" placeholder="What needs to be done?" />
+        <label className="toggle-btn"></label>
       </header>
     );
   }
 }
+
+export default Header;

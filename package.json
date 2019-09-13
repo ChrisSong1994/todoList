@@ -10,6 +10,7 @@
   "author": "chrissong",
   "license": "ISC",
   "devDependencies": {
+    "@types/redux-logger": "^3.0.7",
     "autoprefixer": "^9.6.1",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^3.2.0",
@@ -20,6 +21,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
+    "redux-logger": "^3.0.6",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "typescript": "^3.6.2",
