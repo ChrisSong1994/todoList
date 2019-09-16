@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { State } from "../store/reducer";
+import { State } from "../store/reducer/todoList";
 import { deleteTodo, toggleTodo, Todo } from "../store/action";
 
 interface Props {

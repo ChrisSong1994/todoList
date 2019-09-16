@@ -36,9 +36,13 @@ export function reducer(state: State = initialState, action: Action) {
         })
       };
     }
+    case ActionTypes.CLEAR_TODO: {
+      return {
+        ...state,
+        todoList: []
+      };
+    }
     default:
       return state;
   }
 }
-
-

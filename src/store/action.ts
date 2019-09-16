@@ -8,7 +8,8 @@ export interface Todo {
 export enum ActionTypes {
   ADD_TODO = "ADD_TODO",
   TOGGLE_TODO = "TOGGLE_TODO",
-  DELETE_TODO = "DELETE_TODO"
+  DELETE_TODO = "DELETE_TODO",
+  CLEAR_TODO = "CLEAR_TODO"
 }
 
 export interface AddTodoAction {
@@ -24,6 +25,10 @@ export interface ToggleTodoAction {
 export interface DeleteTodoAction {
   type: ActionTypes.DELETE_TODO;
   payload: { id: number };
+}
+
+export interface ClearTodoAction {
+  type: ActionTypes.CLEAR_TODO;
 }
 
 export function addTodo(name: string): AddTodoAction {
@@ -54,4 +59,14 @@ export function deleteTodo(id: number): DeleteTodoAction {
   };
 }
 
-export type Action = AddTodoAction | ToggleTodoAction | DeleteTodoAction;
+export function clearTodo(): ClearTodoAction {
+  return {
+    type: ActionTypes.CLEAR_TODO
+  };
+}
+
+export type Action =
+  | AddTodoAction
+  | ToggleTodoAction
+  | DeleteTodoAction
+  | ClearTodoAction;
