@@ -1,64 +1,34 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../store/reducer/todoList";
-import { clearTodo, selectedKey, Todo } from "../store/action";
+import { clearTodo, Todo } from "../store/action";
 
 interface Props {
   onClearTodo?: () => any;
   onSelectedKey?: (key: string) => any;
-  todo?: { todoList: []; selectKey: string };
+  todo?: { todoList: [] };
+  selectedKey?: string;
 }
-interface States {
-  todoList?: [];
-  selectKey?: string;
-}
+interface States {}
 
 class Footer extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      selectKey: "All",
-      todoList: []
-    };
   }
 
   handleSelected(key: string) {
     this.props.onSelectedKey(key);
-    switch (key) {
-      case "All": {
-        this.setState({ todoList: this.props.todo.todoList, selectKey: key });
-        break;
-      }
-      case "Active":
-        {
-          const todoList = this.props.todo.todoList.filter(
-            (item: Todo) => !item.done
-          );
-          this.setState({ todoList, selectKey: key });
-        }
-        break;
-      case "Completed":
-        {
-          const todoList = this.props.todo.todoList.filter(
-            (item: Todo) => item.done
-          );
-          this.setState({ todoList, selectKey: key });
-        }
-        break;
-      default: {
-        this.setState({ todoList: this.props.todo.todoList });
-      }
-    }
   }
 
-  handleFilterTodoList() {}
-
   render() {
-    const todoList = this.state.todoList;
+    const activeTodoList = this.props.todo.todoList.filter(
+      (item: Todo) => !item.done
+    );
+    const selectedKey = this.props.selectedKey;
     return (
       <footer className="footer">
         <span className="todo-count">
-          <strong>1</strong>
+          <strong>{activeTodoList.length}</strong>
           <span> </span>
           <span>item</span>
           <span> left</span>
@@ -67,7 +37,7 @@ class Footer extends React.Component<Props, States> {
           <li>
             <a
               href="javascript:void(0)"
-              className="selected"
+              className={selectedKey === "All" ? "selected" : ""}
               onClick={() => {
                 this.handleSelected("All");
               }}
@@ -79,9 +49,9 @@ class Footer extends React.Component<Props, States> {
           <li>
             <a
               href="javascript:void(0)"
-              className=""
+              className={selectedKey === "Active" ? "selected" : ""}
               onClick={() => {
-                this.handleSelected("All");
+                this.handleSelected("Active");
               }}
             >
               Active
@@ -91,9 +61,9 @@ class Footer extends React.Component<Props, States> {
           <li>
             <a
               href="javascript:void(0)"
-              className=""
+              className={selectedKey === "Completed" ? "selected" : ""}
               onClick={() => {
-                this.handleSelected("All");
+                this.handleSelected("Completed");
               }}
             >
               Completed

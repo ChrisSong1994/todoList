@@ -9,24 +9,29 @@ export const initialState: State = {
 };
 
 export function reducer(state: State = initialState, action: Action) {
+  let newState: State = state;
   switch (action.type) {
     case ActionTypes.ADD_TODO: {
       const todo = action.payload.todo;
-      return {
+      newState = {
         ...state,
         todoList: [...state.todoList, todo]
       };
+      window.localStorage.setItem("todo", JSON.stringify(newState));
+      return newState;
     }
     case ActionTypes.DELETE_TODO: {
       const id = action.payload.id;
-      return {
+      newState = {
         ...state,
         todoList: state.todoList.filter(todo => todo.id !== id)
       };
+      window.localStorage.setItem("todo", JSON.stringify(newState));
+      return newState;
     }
     case ActionTypes.TOGGLE_TODO: {
       const id = action.payload.id;
-      return {
+      newState = {
         ...state,
         todoList: state.todoList.map(todo => {
           if (todo.id === id) {
@@ -35,14 +40,24 @@ export function reducer(state: State = initialState, action: Action) {
           return todo;
         })
       };
+      window.localStorage.setItem("todo", JSON.stringify(newState));
+      return newState;
+    }
+    case ActionTypes.SET_TODO_STATE: {
+      const state = action.payload.state;
+      newState = state;
+      window.localStorage.setItem("todo", JSON.stringify(newState));
+      return newState;
     }
     case ActionTypes.CLEAR_TODO: {
-      return {
+      newState = {
         ...state,
         todoList: []
       };
+      window.localStorage.setItem("todo", JSON.stringify(newState));
+      return newState;
     }
     default:
-      return state;
+      return newState;
   }
 }

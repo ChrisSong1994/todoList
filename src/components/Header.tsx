@@ -1,10 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../store/reducer/todoList";
-import { addTodo } from "../store/action";
+import { addTodo, setState } from "../store/action";
 
 interface Props {
   onAddTodo?: (value: string) => any;
+  onSetState?: (state: State) => any;
 }
 interface States {
   value: string;
@@ -16,6 +17,12 @@ class Header extends React.Component<Props, States> {
     this.state = {
       value: ""
     };
+  }
+
+  componentDidMount() {
+    if (window.localStorage.getItem("todo")) {
+      this.props.onSetState(JSON.parse(window.localStorage.getItem("todo")));
+    }
   }
 
   handleChange(value: string) {
@@ -54,7 +61,8 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = {
-  onAddTodo: addTodo
+  onAddTodo: addTodo,
+  onSetState: setState
 };
 
 export default connect<any, any>(

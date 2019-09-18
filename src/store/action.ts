@@ -5,11 +5,16 @@ export interface Todo {
   date: number;
 }
 
+export interface State {
+  todoList: Todo[];
+}
+
 export enum ActionTypes {
   ADD_TODO = "ADD_TODO",
   TOGGLE_TODO = "TOGGLE_TODO",
   DELETE_TODO = "DELETE_TODO",
-  CLEAR_TODO = "CLEAR_TODO"
+  CLEAR_TODO = "CLEAR_TODO",
+  SET_TODO_STATE = "SET_TODO_STATE"
 }
 
 export interface AddTodoAction {
@@ -29,6 +34,11 @@ export interface DeleteTodoAction {
 
 export interface ClearTodoAction {
   type: ActionTypes.CLEAR_TODO;
+}
+
+export interface SetTodoStateAction {
+  type: ActionTypes.SET_TODO_STATE;
+  payload: { state: State };
 }
 
 export function addTodo(name: string): AddTodoAction {
@@ -65,8 +75,16 @@ export function clearTodo(): ClearTodoAction {
   };
 }
 
+export function setState(state: State): SetTodoStateAction {
+  return {
+    type: ActionTypes.SET_TODO_STATE,
+    payload: { state }
+  };
+}
+
 export type Action =
   | AddTodoAction
   | ToggleTodoAction
   | DeleteTodoAction
-  | ClearTodoAction;
+  | ClearTodoAction
+  | SetTodoStateAction;

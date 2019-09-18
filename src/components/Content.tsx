@@ -7,6 +7,7 @@ interface Props {
   onDeleteTodo?: (id: number) => any;
   onToggleTodo?: (id: number) => any;
   todo?: { todoList: [] };
+  selectedKey?: string;
 }
 interface States {}
 
@@ -23,18 +24,36 @@ class Content extends React.Component<Props, States> {
     this.props.onDeleteTodo(id);
   }
 
+  handleFilterTodoList() {
+    const { selectedKey, todo } = this.props;
+    switch (selectedKey) {
+      case "All": {
+        return todo.todoList;
+      }
+      case "Active": {
+        return todo.todoList.filter((item: Todo) => !item.done);
+      }
+      case "Completed": {
+        return todo.todoList.filter((item: Todo) => item.done);
+      }
+      default:
+        return todo.todoList;
+    }
+  }
+
   render() {
-    const { todoList } = this.props.todo;
+    const todoList = this.handleFilterTodoList();
     return (
       <section className="main">
         <ul className="todo-list">
           {todoList.map((todo: Todo) => {
             return (
-              <li className={todo["done"] ? "completed" : ""}>
+              <li className={todo["done"] ? "completed" : ""} key={todo["id"]}>
                 <div className="view">
                   <input
                     className="toggle"
                     type="checkbox"
+                    checked={todo["done"] ? true : false}
                     onClick={() => {
                       this.handleToggle(todo["id"]);
                     }}
