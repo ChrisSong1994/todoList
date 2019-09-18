@@ -10,7 +10,7 @@ module.exports = merge(commonConfig, {
   output: {
     filename: '[name].[chunkhash].js', // 打包后的文件名称
     path: path.resolve('dist'), // 打包后的目录，必须是绝对路径
-    publicPath: '/', // 打包的根目录下
+    publicPath: './', // 打包的根目录下  需要相对路径
   },
   module: {
     rules: [
