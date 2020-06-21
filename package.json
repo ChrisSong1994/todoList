@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --config build/webpack.dev.config.js --open",
     "build": "npm run clean &&  webpack --config build/webpack.prod.config.js",
-    "clean" : "rm -rf dist"
+    "clean": "rm -rf dist"
   },
   "author": "chrissong",
   "license": "ISC",

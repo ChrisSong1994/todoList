@@ -76,15 +76,12 @@ class Content extends React.Component<Props, States> {
 }
 
 const mapStateToProps = (state: State) => ({
-  todo: state.todoList
+  todo: state.todoList,
 });
 
 const mapDispatchToProps = {
   onDeleteTodo: deleteTodo,
-  onToggleTodo: toggleTodo
+  onToggleTodo: toggleTodo,
 };
 
-export default connect<any, any>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect<any, any>(mapStateToProps, mapDispatchToProps)(Content);
