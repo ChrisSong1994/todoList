@@ -6,10 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const preloadState= { todoList: fromTodoList.initialState }
 
-const store = createStore(
-  reducer,
-  preloadState,
-  composeWithDevTools( applyMiddleware(logger),)
-)
 
-export default store
+const store = createStore(reducer, preloadState, composeWithDevTools(applyMiddleware(logger)));
+
+export default store;
