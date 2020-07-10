@@ -1,12 +1,8 @@
-import logger from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
-import { reducer } from './reducer'
-import * as fromTodoList from './reducer/todoList'
+import * as React from 'react';
+import { State } from '../type';
 
-const store = createStore(
-  reducer,
-  { todoList: fromTodoList.initialState },
-  applyMiddleware(logger)
-)
+const defaultState: State = {
+  todoList: [],
+};
 
-export default store
+export const StateContext = React.createContext(defaultState);

@@ -1,43 +1,41 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { State } from "../store/reducer/todoList";
-import { deleteTodo, toggleTodo, Todo } from "../store/action";
+import { StateContext } from '../store';
+import { Todo } from '../type';
 
 interface Props {
-  onDeleteTodo?: (id: number) => any;
-  onToggleTodo?: (id: number) => any;
-  todo?: { todoList: [] };
-  selectedKey?: string;
+ 
 }
 interface States {}
 
 class Content extends React.Component<Props, States> {
+  static contextType = StateContext;
+
   constructor(props: Props) {
     super(props);
   }
 
   handleToggle(id: number) {
-    this.props.onToggleTodo(id);
+    this.context.onToggleTodo(id);
   }
 
   handleDelete(id: number) {
-    this.props.onDeleteTodo(id);
+    this.context.onDeleteTodo(id);
   }
 
   handleFilterTodoList() {
-    const { selectedKey, todo } = this.props;
+    const { selectedKey, todoList } = this.context;
     switch (selectedKey) {
       case "All": {
-        return todo.todoList;
+        return todoList;
       }
       case "Active": {
-        return todo.todoList.filter((item: Todo) => !item.done);
+        return todoList.filter((item: Todo) => !item.done);
       }
       case "Completed": {
-        return todo.todoList.filter((item: Todo) => item.done);
+        return todoList.filter((item: Todo) => item.done);
       }
       default:
-        return todo.todoList;
+        return todoList;
     }
   }
 
@@ -75,16 +73,5 @@ class Content extends React.Component<Props, States> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  todo: state.todoList
-});
 
-const mapDispatchToProps = {
-  onDeleteTodo: deleteTodo,
-  onToggleTodo: toggleTodo
-};
-
-export default connect<any, any>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default Content;

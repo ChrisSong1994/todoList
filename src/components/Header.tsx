@@ -1,28 +1,22 @@
-import * as React from "react";
-import { connect } from "react-redux";
-import { State } from "../store/reducer/todoList";
-import { addTodo, setState } from "../store/action";
+import * as React from 'react';
+import { StateContext } from '../store';
 
-interface Props {
-  onAddTodo?: (value: string) => any;
-  onSetState?: (state: State) => any;
-}
 interface States {
   value: string;
 }
 
-class Header extends React.Component<Props, States> {
-  constructor(props: Props) {
+class Header extends React.Component<any, States> {
+  static contextType = StateContext;
+
+  constructor(props: any) {
     super(props);
     this.state = {
-      value: ""
+      value: '',
     };
   }
 
   componentDidMount() {
-    if (window.localStorage.getItem("todo")) {
-      this.props.onSetState(JSON.parse(window.localStorage.getItem("todo")));
-    }
+    console.log(this.context);
   }
 
   handleChange(value: string) {
@@ -30,9 +24,9 @@ class Header extends React.Component<Props, States> {
   }
 
   handleOnEnter(e: any) {
-    if (e.key === "Enter") {
-      this.props.onAddTodo(this.state.value);
-      this.setState({ value: "" });
+    if (e.key === 'Enter') {
+      this.context.onInput(this.state.value);
+      this.setState({ value: '' });
     }
   }
 
@@ -45,8 +39,8 @@ class Header extends React.Component<Props, States> {
           className="new-todo"
           placeholder="What needs to be done?"
           value={value}
-          onChange={e => this.handleChange(e.target.value)}
-          onKeyDown={e => {
+          onChange={(e) => this.handleChange(e.target.value)}
+          onKeyDown={(e) => {
             this.handleOnEnter(e);
           }}
         />
@@ -56,16 +50,4 @@ class Header extends React.Component<Props, States> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  todo: state.todoList
-});
-
-const mapDispatchToProps = {
-  onAddTodo: addTodo,
-  onSetState: setState
-};
-
-export default connect<any, any>(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default Header;
