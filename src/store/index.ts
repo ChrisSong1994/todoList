@@ -1,12 +1,11 @@
-import logger from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
-import { reducer } from './reducer'
-import * as fromTodoList from './reducer/todoList'
+import logger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import { reducer } from './reducer';
+import * as fromTodoList from './reducer/todoList';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(
-  reducer,
-  { todoList: fromTodoList.initialState },
-  applyMiddleware(logger)
-)
+const preloadState = { todos: fromTodoList.initialState };
 
-export default store
+const store = createStore(reducer, preloadState, composeWithDevTools(applyMiddleware(logger)));
+
+export default store;
